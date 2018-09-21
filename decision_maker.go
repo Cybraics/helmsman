@@ -389,7 +389,7 @@ func isProtected(r *release, rs releaseState) bool {
 
 // getDesiredTillerNamespaceFlag returns a tiller-namespace flag with which a release is desired to be maintained
 func getDesiredTillerNamespaceFlag(r *release) string {
-	return " --tiller-namespace " + getDesiredTillerNamespace(r)
+	return " --tiller-namespace=" + getDesiredTillerNamespace(r)
 }
 
 // getDesiredTillerNamespace returns the Tiller namespace with which a release should be managed
@@ -406,7 +406,7 @@ func getDesiredTillerNamespace(r *release) string {
 // getCurrentTillerNamespaceFlag returns the tiller-namespace with which a release is currently maintained
 func getCurrentTillerNamespaceFlag(rs releaseState) string {
 	if rs.TillerNamespace != "" {
-		return " --tiller-namespace " + rs.TillerNamespace
+		return " --tiller-namespace=" + rs.TillerNamespace
 	}
 	return ""
 }

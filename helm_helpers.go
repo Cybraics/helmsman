@@ -81,7 +81,7 @@ func getTillerReleases(tillerNS string) tillerReleases {
 
 	cmd := command{
 		Cmd:         "bash",
-		Args:        []string{"-c", "helm list --all --max 0 " + outputFormat + " --tiller-namespace " + tillerNS + getNSTLSFlags(tillerNS)},
+		Args:        []string{"-c", "helm list --all --max 0 " + outputFormat + " --tiller-namespace=" + tillerNS + getNSTLSFlags(tillerNS)},
 		Description: "listing all existing releases in namespace [ " + tillerNS + " ]...",
 	}
 
@@ -223,7 +223,7 @@ func waitForTiller(namespace string) {
 
 	cmd := command{
 		Cmd:         "bash",
-		Args:        []string{"-c", "helm list --tiller-namespace " + namespace + getNSTLSFlags(namespace)},
+		Args:        []string{"-c", "helm list --tiller-namespace=" + namespace + getNSTLSFlags(namespace)},
 		Description: "checking if helm Tiller is ready in namespace [ " + namespace + " ].",
 	}
 
@@ -321,7 +321,7 @@ func deployTiller(namespace string, serviceAccount string, defaultServiceAccount
 	if namespace == "" {
 		namespace = "kube-system"
 	}
-	tillerNameSpace := " --tiller-namespace " + namespace
+	tillerNameSpace := " --tiller-namespace=" + namespace
 
 	tls := ""
 	if tillerTLSEnabled(namespace) {
@@ -433,7 +433,7 @@ func deleteUntrackedRelease(release string, tillerNamespace string) {
 	}
 	cmd := command{
 		Cmd:         "bash",
-		Args:        []string{"-c", "helm delete --purge " + release + " --tiller-namespace " + tillerNamespace + tls},
+		Args:        []string{"-c", "helm delete --purge " + release + " --tiller-namespace=" + tillerNamespace + tls},
 		Description: "deleting untracked release [ " + release + " ] from Tiller in namespace [[ " + tillerNamespace + " ]]",
 	}
 
